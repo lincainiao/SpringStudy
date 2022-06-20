@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="com.lin.pojo.User" id="user">
+        <!--<property name="name" value="zhizhi"/>-->
+        <!--有参构造创建对象-->
+
+        <!--使用下标的方式-->
+        <!--<constructor-arg index="0" value="zhizhi"/>-->
+
+        <!--通过参数的类型，仅适用于相同类型的参数只有一个-->
+        <!--<constructor-arg type="java.lang.String" value="zhizhi"/>-->
+
+        <!--通过参数名-->
+        <constructor-arg name="name" value="zhizhi"/>
+    </bean>
+
+    <!--别名，name对应上面class的id-->
+    <alias name="user" alias="zhizhi"/>
+
+    <!--
+        id：bean的唯一标识符
+        class：bean对应的全限定名
+        name：别名，可以同时取多个别名
+    -->
+    <bean id="user2" class="com.lin.pojo.User" name="uzhizhi,u2">
+        <constructor-arg name="name" value="zhizhi2"/>
+    </bean>
+</beans>

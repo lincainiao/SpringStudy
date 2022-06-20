@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="address" class="com.lin.pojo.Address">
+        <property name="address" value="here"/>
+    </bean>
+
+    <bean id="student" class="com.lin.pojo.Student">
+        <!--1.普通注入-->
+        <property name="name" value="zhizhi"/>
+        <!--2.bean注入,ref-->
+        <property name="address" ref="address"/>
+        <!--3.数组注入-->
+        <property name="books">
+            <array>
+                <value>bookZhizhi</value>
+                <value>bookMxy</value>
+                <value>bookZsy</value>
+            </array>
+        </property>
+        <!--4.List-->
+        <property name="hobbies">
+            <list>
+                <value>listening to music</value>
+                <value>watching movies</value>
+                <value>playing games</value>
+            </list>
+        </property>
+        <!--Map-->
+        <property name="others">
+            <map>
+                <entry key="color" value="red"/>
+                <entry key="girls" value="芝芝"/>
+                <entry key="age" value="20"/>
+            </map>
+        </property>
+        <!--Set-->
+        <property name="games">
+            <set>
+                <value>LOL</value>
+                <value>Girls</value>
+                <value>KOF</value>
+            </set>
+        </property>
+        <!--空值注入，不是null，但是也可以设置为null-->
+        <property name="wife" value=""/>
+        <!--特殊类型-->
+        <property name="info">
+            <props>
+                <prop key="prop1">black pantyhose</prop>
+                <prop key="prop2">white lace</prop>
+                <prop key="prop3">uniform and glasses</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--p命名空间注入，可以直接注入属性的值，p是property-->
+    <bean id="user" class="com.lin.pojo.User" p:name="zhizhi" p:age="22"/>
+
+    <!--c命名空间注入，可以通过有参构造器注入，c为constructor-->
+    <bean id="girls" class="com.lin.pojo.Girls" c:name="zhizhi" c:age="22" c:color="black"/>
+
+    <!--单例模式（默认）-->
+    <bean id="userSingleton" class="com.lin.pojo.User" p:name="zhizhi" p:age="22" scope="singleton"/>
+
+    <!--原型模式，每次从容器中get都会生成新的对象-->
+    <bean id="userPrototype" class="com.lin.pojo.User" p:name="zhizhi" p:age="22" scope="prototype"/>
+
+
+</beans>

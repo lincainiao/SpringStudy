@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--开启注解支持-->
+    <context:annotation-config/>
+    
+    <bean id="aopLogOut" class="com.lin.linshi.AOPLogOut"/>
+    <aop:config>
+        <aop:pointcut id="photographPointCut" expression="execution(* com.lin.linshi.Photographer.*(..))"/>
+        <aop:aspect id="aopLogOutAspect" ref="aopLogOut">
+            <aop:before method="beforeLog" pointcut-ref="photographPointCut"/>
+            <aop:after method="afterLog" pointcut-ref="photographPointCut"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="photograph" class="com.lin.linshi.Photographer"/>
+
+    <import resource="spring-mybatis.xml"/>
+    <bean id="userMapper" class="com.lin.springmybatis.UserMapperImpl">
+        <property name="sqlSessionTemplate" ref="sqlSession"/>
+    </bean>
+</beans>
